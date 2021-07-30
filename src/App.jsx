@@ -18,39 +18,26 @@ import UsersReactTable from "pages/users-react-table";
 
 import User from "pages/user";
 import { BootswatchSelect } from "react-bootswatch-select";
-
-// const themes = [
-//   { title: "Morph", path: "/styles/Morph/main.css" },
-//   { title: "Spacelab", path: "/styles/Spacelab/main.css" },
-//   { title: "Flatly", path: "/styles/Flatly/main.css" },
-//   { title: "United", path: "/styles/United/main.css" },
-//   { title: "Sketchy Light", path: "/styles/sketchy-light/main.css" },
-//   { title: "Sketchy Dark", path: "/styles/sketchy-dark/main.css" },
-//   { title: "Cyborg", path: "/styles/cyborg/main.css" },
-//   { title: "Lumen", path: "/styles/lumen/main.css" },
-//   { title: "Cerulean", path: "/styles/Cerulean/main.css" },
-//   { title: "Minty", path: "/styles/Minty/main.css" },
-//   { title: "Darkly", path: "/styles/Darkly/main.css" },
-// ];
+import SideBar from "components/sidebar"
+import { useState } from "react";
+import { FaBars } from "react-icons/fa";
 
 function App() {
-  // const [styleIndex, setStyleIndex] = useState(0);
-
-  // useEffect(() => {
-  //   let ndx = parseInt(localStorage.getItem("styleIndex"));
-  //   // if (ndx > 0) setStyleIndex(ndx);
-  //   document.title = `API test app`;
-  // }, []);
+  const [sidebar, setSidebar] = useState(true);
+  const togleSidebar = () => setSidebar(!sidebar);
 
   return (
     <div className="App">
-      {/* <link rel="stylesheet" type="text/css" href={process.env.PUBLIC_URL + themes[styleIndex].path} /> */}
-      {/* <link rel="stylesheet" type="text/css" href={process.env.PUBLIC_URL+"styles/App.scss"}></link> */}
-      {/* <link rel="stylesheet" type="text/css" href={"bootstrap.min.css"}></link> */}
 
       <Router>
+      <SideBar mehanics={{ sidebar, togleSidebar }} />
         <Navbar fixed="top" className="navbar-dark bg-primary" expand="lg">
-          <Navbar.Brand>Json API test</Navbar.Brand>
+          <Navbar.Brand>
+            <FaBars onClick={togleSidebar} />
+          </Navbar.Brand>
+          <Navbar.Brand>
+            Json API test
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
