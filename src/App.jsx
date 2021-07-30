@@ -1,4 +1,4 @@
-import "App.scss";
+import "./styles/App.scss";
 
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";

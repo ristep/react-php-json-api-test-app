@@ -49,7 +49,7 @@ const Users = () => {
 
   return (
     <>
-    <Card>
+    <Card className="tableCard">
       <NaviList baseUrl={BaseUrl} cnt={data ? data.recordCount : 0} page={page} size={size} search={search}></NaviList>
     </Card>
       {(isLoading || isFetching) && <Spinner></Spinner>}
@@ -57,7 +57,7 @@ const Users = () => {
       {error && <div>{'An error has occurred: ' + error.message}</div>}
 
       {isSuccess && !error && !(isLoading || isFetching) &&
-        <Card>
+        <Card className="tableCard">
           <Card.Body>
             <Card.Title>
               <h3>Users table</h3>

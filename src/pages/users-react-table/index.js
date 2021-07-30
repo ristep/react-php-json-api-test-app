@@ -2,13 +2,11 @@ import React from "react";
 import Axios from "Axios";
 import { useQuery } from 'react-query'
 
-import { Card } from "react-bootstrap";
+import { Card, Container } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import NaviList from "components/naviList";
 import Spinner from "components/spinner";
 import { useSortBy, useTable } from "react-table";
-
-import './tableStyle.scss';
 
 const PAGE_SIZE = 15;
 // const DT = 250;
@@ -149,8 +147,8 @@ const UsersReactTable = () => {
   );
 
   return (
-    <>
-    <Card >
+    <Container>
+    <Card className="tableCard">
       <NaviList baseUrl={BaseUrl} cnt={data ? data.recordCount : 0} page={page} size={size} search={search}></NaviList>
     </Card>
       {(isLoading || isFetching) && <Spinner></Spinner>}
@@ -169,7 +167,7 @@ const UsersReactTable = () => {
         </Card>
       }
     {/* <ReactJson src={data} /> */}
-    </>
+    </Container>
   );
 }
 

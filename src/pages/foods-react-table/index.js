@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Container, Image, Table } from "react-bootstrap";
+import { Card, Image, Table } from "react-bootstrap";
 
 import Axios from "Axios";
 import { Link, useParams } from "react-router-dom";
@@ -65,8 +65,7 @@ const FoodsTable = ({ columns, data }) => {
 
   // Render the UI for your table
   return (
-    <Container className="food-table-container">
-    <Table striped bordered hover table-responsive {...getTableProps()} size="sm">
+    <Table striped hover table-responsive {...getTableProps()} size="sm">
       <thead>
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()} className="table-header">
@@ -102,7 +101,6 @@ const FoodsTable = ({ columns, data }) => {
         })}
       </tbody>
     </Table>
-    </Container>
   )
 }
 
@@ -158,26 +156,17 @@ const FoodsReactTable = () => {
   );
 
   return (
-    <>
+    <Card  className='tableCard'>
       <NaviList baseUrl={BaseUrl} cnt={data ? data.recordCount : 0 } page={page} size={size} search={search}></NaviList>
-      {/* <h3 style={{textAlign: 'center'}}>Food list whith react-query and react-table</h3> */}
 
       {(isLoading || isFetching) && <Spinner></Spinner> }
 
       { error && <div>{'An error has occurred: ' + error.message}</div> }
 
       { isSuccess && !error && !( isLoading || isFetching ) &&
-       <Card className={'tableCard'}>
-        <Card.Body>
-          <Card.Text>
-
           <FoodsTable columns={columns} data={data.data} />
-
-          </Card.Text>
-        </Card.Body>
-      </Card>
       }
-    </>  
+    </Card>  
   );
 
 }
