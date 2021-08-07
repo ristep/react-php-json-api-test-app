@@ -1,31 +1,33 @@
 import React from 'react';
-import { Nav, Navbar } from "react-bootstrap";
-
-import * as AiIcons from 'react-icons/ai';
+import { Offcanvas } from "react-bootstrap";
 
 import { SideBarJSON } from './SideBarJSON';
 
 import './sidebar.scss';
+import { FaRegWindowClose } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 
 function SideBar(props) {
   const { sidebar, togleSidebar } = props.mehanics;
+  const history = useHistory();
 
   return (
-    <Navbar bg="light" variant="light" className={sidebar ? 'sidenav active' : 'sidenav'} onClick={togleSidebar}> 
-      <Nav variant="pills" className="flex-column">
-        <Nav.Link className='menu-bars'>
-          <AiIcons.AiOutlineClose />
-        </Nav.Link>
-        {SideBarJSON.map((item, index) => {
-          return (
-            <Nav.Link key={index} href={'#'+item.path}>
-              {item.icon}
-              <span>{item.title}</span>
-            </Nav.Link>
-          );
-        })}
-      </Nav>
-    </Navbar>
+    <Offcanvas show={sidebar} onClick={togleSidebar} className="sidebar">
+      <Offcanvas.Header>
+        <Offcanvas.Title>
+          <FaRegWindowClose onClick={togleSidebar} />
+        </Offcanvas.Title>
+      </Offcanvas.Header>
+      <Offcanvas.Body className="sidebar-nav">
+        {SideBarJSON.map((item, index) =>
+          <div key={index} onClick={() => history.push(item.path)} className="sidebar-row">
+            <label className="sidebar-icon">{item.icon}</label>
+            <label className="sidebar-title">{item.title}</label>
+          </div>
+        )}
+      </Offcanvas.Body>
+
+    </Offcanvas>
   );
 }
 

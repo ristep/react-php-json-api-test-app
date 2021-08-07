@@ -1,48 +1,49 @@
 import React from 'react';
-import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
-import * as IoIcons from 'react-icons/io';
+import { FaPizzaSlice, FaCartPlus, FaTable, FaUsers } from 'react-icons/fa';
+import { AiFillHome, AiOutlineQuestionCircle } from 'react-icons/ai';
+import { ImUsers } from "react-icons/im";
+import { VscInfo } from "react-icons/vsc";
 
 export const SideBarJSON = [
   {
     title: 'Home',
     path: '/',
-    icon: <AiIcons.AiFillHome />,
+    icon: <AiFillHome />,
   },
   {
     title: 'Foods',
     path: '/foods',
-    icon: <IoIcons.IoIosPaper />,
+    icon: <FaPizzaSlice />,
   },
   {
     title: 'Foods react-query',
     path: '/foods-react-query',
-    icon: <FaIcons.FaCartPlus />,
+    icon: <FaCartPlus />,
   },
   {
     title: 'Foods react-table',
     path: '/foods-react-table',
-    icon: <IoIcons.IoMdPeople />,
+    icon: <FaTable />,
   },
   {
     title: 'Test requests',
     path: '/queries',
-    icon: <FaIcons.FaEnvelopeOpenText />,
+    icon: <AiOutlineQuestionCircle />,
   },
   {
     title: 'Users',
     path: '/users',
-    icon: <IoIcons.IoMdHelpCircle />,
+    icon: <FaUsers />,
   },
   {
     title: 'Users react-table',
     path: '/users-react-table',
-    icon: <IoIcons.IoMdHelpCircle />,
+    icon: <ImUsers />,
   },
   {
     title: 'About',
     path: '/about',
-    icon: <IoIcons.IoMdHelpCircle />,
+    icon: <VscInfo />,
   },
   
 ];

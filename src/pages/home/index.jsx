@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 
 export const useForm = (options) => {
   const [data, setData] = useState((options?.initialValues || {}));
@@ -63,12 +63,19 @@ export const useForm = (options) => {
   };
 };
 
-const Home = () => {
- 
+const Home = (props) => {
+  const { setTheme } = props;
+
+  const them = (theme) => ("./styles/" + theme + "/main.css" );
+
   return (
     <Container>
-      <h2>Home page placeholders</h2>
-
+      <h2>Home page</h2>
+      <h3>Choose Botswatch theme</h3>
+      <Button style={{backgroundColor:"rgb(217, 227, 241)"}} onClick={()=>setTheme(them("Morph"))}>Morph</Button>
+      <Button style={{backgroundColor:"rgb(120, 194, 173)"}} onClick={()=>setTheme(them("Minty"))}>Minty</Button>
+      <Button style={{backgroundColor:"rgb(44, 62, 80)"}}    onClick={()=>setTheme(them("Flatly"))}>Flatly</Button>
+      <Button style={{backgroundColor:"rgb(47, 164, 231)"}}  onClick={()=>setTheme(them("Cerulean"))}>Cerulean</Button>
    </Container>
   );
 

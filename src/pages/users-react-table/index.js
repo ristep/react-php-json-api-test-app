@@ -19,7 +19,7 @@ const usersListQuery = (search, pgSize, offset) => ({
       "id",
       "name",
       "first_name",
-      "second_name",
+      "second_name", 
       "address",
       "email",
       "place"

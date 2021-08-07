@@ -15,32 +15,32 @@ import Users from "pages/users";
 import FoodsRQ from "pages/foods-react-query";
 import FoodsReactTable from "pages/foods-react-table";
 import UsersReactTable from "pages/users-react-table";
+import LoginForm from "pages/loginForm";
 
 import User from "pages/user";
-import { BootswatchSelect } from "react-bootswatch-select";
-import SideBar from "components/sidebar"
 import { useState } from "react";
 import { FaBars } from "react-icons/fa";
 
 function App() {
+  const [ theme, setTheme ] = useState("./styles/Minty/main.css");
   const [sidebar, setSidebar] = useState(true);
   const togleSidebar = () => setSidebar(!sidebar);
 
   return (
     <div className="App">
-
+      <link rel="stylesheet" type="text/css" href={theme} />
       <Router>
-      <SideBar mehanics={{ sidebar, togleSidebar }} />
+      <link rel="style" href="./bootstrap.min.css"></link>
+
         <Navbar fixed="top" className="navbar-dark bg-primary" expand="lg">
+          {/* <SideBar mehanics={{ sidebar, togleSidebar }} /> */}
           <Navbar.Brand>
             <FaBars onClick={togleSidebar} />
           </Navbar.Brand>
-          <Navbar.Brand>
-            Json API test
-          </Navbar.Brand>
+          <Navbar.Brand>Json API test</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
+            <Nav className="container-fluid">
               <NavLink href="#/home">Home</NavLink>
 
               <NavDropdown
@@ -74,21 +74,24 @@ function App() {
               </NavDropdown>
 
               <NavLink href="#/about">About</NavLink>
-            </Nav>
-            {/* <Button type="button" onClick={handleButtonClick}>
-                Theme: {themes[styleIndex].title}
-              </Button> */}
-            {/* <Link onClick={() => window.location.replace("/about")}>About</Link> */}
+
+          <NavDropdown 
+            id="nav-drop-down-login"
+            title="Login"
+            className="ms-auto ml-auto"
+          >
+            <NavDropdown.Item href="#/login">Ligin</NavDropdown.Item>
+            <NavDropdown.Item href="#/login">Logout</NavDropdown.Item>
+          </NavDropdown>
+
+          </Nav>
+
           </Navbar.Collapse>
-          
-          <BootswatchSelect cdnLocation={'https://bootswatch.com/'} version={'5'} className="form-control" style={{ maxWidth: '160px' }} selectedThemeName={'minty'}/>
-
         </Navbar>
-
         <Container className="appBody">
           <Switch>
             <Route exact path={["/", "/home", "/doma"]}>
-              <Home />
+              <Home setTheme={ setTheme }/>
             </Route>
 
             <Route path="/food/:foodID">
@@ -125,6 +128,9 @@ function App() {
 
             <Route path="/user/:userID">
               <User />
+            </Route>
+            <Route path="/login">
+              <LoginForm />
             </Route>
           </Switch>
         </Container>
