@@ -13,8 +13,8 @@ const BaseUrl = "#/users/";
 
 const usersListQuery = (search, pgSize, offset) => ({
   MetaList: {
-    "type": "users",
-    "attributes": [
+    type: "users",
+    attributes: [
       "id",
       "name",
       "first_name",

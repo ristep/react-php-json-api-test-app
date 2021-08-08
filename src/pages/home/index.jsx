@@ -76,6 +76,7 @@ const Home = (props) => {
       <Button style={{backgroundColor:"rgb(120, 194, 173)"}} onClick={()=>setTheme(them("Minty"))}>Minty</Button>
       <Button style={{backgroundColor:"rgb(44, 62, 80)"}}    onClick={()=>setTheme(them("Flatly"))}>Flatly</Button>
       <Button style={{backgroundColor:"rgb(47, 164, 231)"}}  onClick={()=>setTheme(them("Cerulean"))}>Cerulean</Button>
+      <Button style={{backgroundColor:"rgb(69, 130, 236)"}}  onClick={()=>setTheme(them("Litera"))}>Litera</Button>
    </Container>
   );
 

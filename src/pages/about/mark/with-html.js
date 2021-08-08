@@ -1,4 +1,3 @@
-'use strict'
 import ReactMarkdown from 'react-markdown'
 
 const xtend = require('xtend')

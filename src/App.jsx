@@ -19,24 +19,29 @@ import LoginForm from "pages/loginForm";
 
 import User from "pages/user";
 import { useState } from "react";
-import { FaBars } from "react-icons/fa";
+// import { FaBars } from "react-icons/fa";
 
 function App() {
-  const [ theme, setTheme ] = useState("./styles/Minty/main.css");
-  const [sidebar, setSidebar] = useState(true);
-  const togleSidebar = () => setSidebar(!sidebar);
+  const [theme, setTheme] = useState("./styles/Minty/main.css");
+  const [loginState, setLoginState] = useState({
+    OK: false,
+    error: false,
+    count: 0,
+  });
+  // const [sidebar, setSidebar] = useState(true);
+  // const togleSidebar = () => setSidebar(!sidebar);
 
   return (
     <div className="App">
       <link rel="stylesheet" type="text/css" href={theme} />
       <Router>
-      <link rel="style" href="./bootstrap.min.css"></link>
+        <link rel="style" href="./bootstrap.min.css"></link>
 
         <Navbar fixed="top" className="navbar-dark bg-primary" expand="lg">
           {/* <SideBar mehanics={{ sidebar, togleSidebar }} /> */}
-          <Navbar.Brand>
+          {/* <Navbar.Brand>
             <FaBars onClick={togleSidebar} />
-          </Navbar.Brand>
+          </Navbar.Brand> */}
           <Navbar.Brand>Json API test</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -74,24 +79,19 @@ function App() {
               </NavDropdown>
 
               <NavLink href="#/about">About</NavLink>
-
-          <NavDropdown 
-            id="nav-drop-down-login"
-            title="Login"
-            className="ms-auto ml-auto"
-          >
-            <NavDropdown.Item href="#/login">Ligin</NavDropdown.Item>
-            <NavDropdown.Item href="#/login">Logout</NavDropdown.Item>
-          </NavDropdown>
-
-          </Nav>
-
+              { !loginState.OK ? (
+              <NavLink href="#/login" className="ms-auto ml-auto">Login</NavLink>
+              ) : (
+                <NavLink href="#/login" className="ms-auto ml-auto">{loginState.data.name}: {loginState.data.first_name+' '+loginState.data.second_name}</NavLink>
+              )}
+            </Nav>
           </Navbar.Collapse>
         </Navbar>
+
         <Container className="appBody">
           <Switch>
             <Route exact path={["/", "/home", "/doma"]}>
-              <Home setTheme={ setTheme }/>
+              <Home setTheme={setTheme} />
             </Route>
 
             <Route path="/food/:foodID">
@@ -99,7 +99,7 @@ function App() {
             </Route>
 
             <Route path="/about">
-              <About />
+              <About userData={loginState.data} />
             </Route>
 
             <Route path="/queries/:rqID?">
@@ -130,7 +130,7 @@ function App() {
               <User />
             </Route>
             <Route path="/login">
-              <LoginForm />
+              <LoginForm userModel={{ loginState, setLoginState }} />
             </Route>
           </Switch>
         </Container>

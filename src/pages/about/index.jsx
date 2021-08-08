@@ -3,8 +3,10 @@ import toc from 'remark-toc';
 import Markdown from 'react-markdown';
 
 import { Card } from "react-bootstrap";
+import ReactJson from "react-json-view";
 
-const AboutPage = () =>{
+const AboutPage = (props) =>{
+  const { userData } = props;
 	const [markdown, setMarkdown] = useState('');
   const [url] = useState("https://raw.githubusercontent.com/ristep/php-json-api-test-app/master/README.md");
 
@@ -34,6 +36,7 @@ const AboutPage = () =>{
             plugins={[toc]}
           />
         </Card>
+        <ReactJson src={userData} />
 		</div> 
   	)
 }
