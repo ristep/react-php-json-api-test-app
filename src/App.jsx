@@ -1,8 +1,6 @@
 import "./styles/App.scss";
 
 import React from "react";
-import Navbar from "react-bootstrap/Navbar";
-import { Nav, NavLink, NavDropdown, Container } from "react-bootstrap";
 
 import Home from "pages/home";
 
@@ -15,16 +13,17 @@ import Users from "pages/users";
 import FoodsRQ from "pages/foods-react-query";
 import FoodsReactTable from "pages/foods-react-table";
 import UsersReactTable from "pages/users-react-table";
-import { ProvideUserLoginData, useAuthData } from "hooks/userLoginData";
+import { ProvideUserLoginData } from "hooks/authData";
 import LoginForm from "pages/loginForm";
 
 import User from "pages/user";
 import { useState } from "react";
-// import { FaBars } from "react-icons/fa";
+import { Container } from "react-bootstrap";
+import MainNavBar from "components/mainNavBar";
 
 function App() {
-  const [theme, setTheme] = useState("./styles/Minty/main.css");
-  const loginState = useAuthData();
+  const [theme, setTheme] = useState("./styles/Cerulean/main.css");
+
   // const [sidebar, setSidebar] = useState(true);
   // const togleSidebar = () => setSidebar(!sidebar);
 
@@ -35,56 +34,7 @@ function App() {
       <Router>
         <link rel="style" href="./bootstrap.min.css"></link>
 
-        <Navbar fixed="top" className="navbar-dark bg-primary" expand="lg">
-          {/* <SideBar mehanics={{ sidebar, togleSidebar }} /> */}
-          {/* <Navbar.Brand>
-            <FaBars onClick={togleSidebar} />
-          </Navbar.Brand> */}
-          <Navbar.Brand>Json API test</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="container-fluid">
-              <NavLink href="#/home">Home</NavLink>
-
-              <NavDropdown
-                id="nav-dropdown-foods"
-                title="Foods"
-                menuVariant="parent"
-              >
-                <NavDropdown.Item href="#/foods">Foods</NavDropdown.Item>
-                <NavDropdown.Item href="#/foods-react-query">
-                  Foods react-query
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#/foods-react-table">
-                  Foods react-table
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
-
-              <NavLink href="#/queries">Requests</NavLink>
-              <NavDropdown
-                id="nav-dropdown-users"
-                title="Users"
-                menuVariant="dark"
-              >
-                <NavDropdown.Item href="#/users">Users</NavDropdown.Item>
-                <NavDropdown.Item href="#/users-react-table">
-                  Users react-table
-                </NavDropdown.Item>
-              </NavDropdown>
-
-              <NavLink href="#/about">About</NavLink>
-              { !loginState?.OK ? (
-              <NavLink href="#/login" className="ms-auto ml-auto">Login</NavLink>
-              ) : (
-                <NavLink href="#/login" className="ms-auto ml-auto">{loginState?.data.name}: {loginState?.data.first_name+' '+loginState?.data.second_name}</NavLink>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+        <MainNavBar />
 
         <Container className="appBody">
           <Switch>
@@ -97,7 +47,7 @@ function App() {
             </Route>
 
             <Route path="/about">
-              <About userData={loginState?.data} />
+              <About />
             </Route>
 
             <Route path="/queries/:rqID?">
