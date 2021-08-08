@@ -15,6 +15,7 @@ import Users from "pages/users";
 import FoodsRQ from "pages/foods-react-query";
 import FoodsReactTable from "pages/foods-react-table";
 import UsersReactTable from "pages/users-react-table";
+import { ProvideUserLoginData, useAuthData } from "hooks/userLoginData";
 import LoginForm from "pages/loginForm";
 
 import User from "pages/user";
@@ -23,17 +24,14 @@ import { useState } from "react";
 
 function App() {
   const [theme, setTheme] = useState("./styles/Minty/main.css");
-  const [loginState, setLoginState] = useState({
-    OK: false,
-    error: false,
-    count: 0,
-  });
+  const loginState = useAuthData();
   // const [sidebar, setSidebar] = useState(true);
   // const togleSidebar = () => setSidebar(!sidebar);
 
   return (
     <div className="App">
       <link rel="stylesheet" type="text/css" href={theme} />
+      <ProvideUserLoginData>
       <Router>
         <link rel="style" href="./bootstrap.min.css"></link>
 
@@ -79,10 +77,10 @@ function App() {
               </NavDropdown>
 
               <NavLink href="#/about">About</NavLink>
-              { !loginState.OK ? (
+              { !loginState?.OK ? (
               <NavLink href="#/login" className="ms-auto ml-auto">Login</NavLink>
               ) : (
-                <NavLink href="#/login" className="ms-auto ml-auto">{loginState.data.name}: {loginState.data.first_name+' '+loginState.data.second_name}</NavLink>
+                <NavLink href="#/login" className="ms-auto ml-auto">{loginState?.data.name}: {loginState?.data.first_name+' '+loginState?.data.second_name}</NavLink>
               )}
             </Nav>
           </Navbar.Collapse>
@@ -99,7 +97,7 @@ function App() {
             </Route>
 
             <Route path="/about">
-              <About userData={loginState.data} />
+              <About userData={loginState?.data} />
             </Route>
 
             <Route path="/queries/:rqID?">
@@ -130,11 +128,12 @@ function App() {
               <User />
             </Route>
             <Route path="/login">
-              <LoginForm userModel={{ loginState, setLoginState }} />
+              <LoginForm />
             </Route>
           </Switch>
         </Container>
       </Router>
+      </ProvideUserLoginData>
     </div>
   );
 }
