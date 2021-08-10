@@ -70,7 +70,7 @@ const User = () => {
     error,
     formData,
   } = useDataModule({ userDetailQuery, userUpdateQuery, userID });
-  const { onBlur,  errors } = useValiHook({ valSchema, formData });
+  const { onBlur, validate,  errors } = useValiHook({ valSchema, formData });
 
   return (
     <Container style={{ maxWidth: "600px" }}>
@@ -191,10 +191,10 @@ const User = () => {
             {/* <Button size="sm" type="submit" variant="primary">
                 Click here to submit data
               </Button>
-
-            <Button size="sm" variant="primary" onClick={validate}>
+            */}
+            {/* <Button size="sm" variant="primary" onClick={validate}>
                 validate
-              </Button> */}
+            </Button> */}
 
             {/* <ReactJson name="errorList" src={errors} /> */}
           </Card>

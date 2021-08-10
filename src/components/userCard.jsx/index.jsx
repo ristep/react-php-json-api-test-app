@@ -22,7 +22,7 @@ let valSchema = yup.object().shape({
   state: yup.string().nullable(),
   email: yup
     .string()
-    .required(" email is required!")
+    .required("Field email is required!")
     .email("Enter valid email address!"),
   zipcode: yup
     .string()

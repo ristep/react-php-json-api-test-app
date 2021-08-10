@@ -15,6 +15,7 @@ const useValiHook = (props) => {
     };
 
   const validate =  () =>{
+    console.log(formData);
     valSchema.validate(formData, { abortEarly: false } )
       .catch( (err) =>{
         err.inner.forEach( (err) => {
