@@ -8,13 +8,14 @@ import {
   Form,
   Row,
 } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import useValiHook from "../../hooks/formValidation";
 
 import * as yup from "yup";
-import ReactJson from "react-json-view";
 
 import "./index.scss";
 import { useAuthData } from "hooks/authData";
+import UserCard from "components/userCard.jsx";
 
 let valSchema = yup.object().shape({
   username: yup.string().required(),
@@ -25,6 +26,7 @@ const LoginForm = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const { onBlur, errors } = useValiHook({ valSchema, formData });
   const { loginState, getKey, clearKey } = useAuthData();
+  const history = useHistory();
 
   const onChange = (ev) => {
     setFormData({ ...formData, [ev.target.name]: ev.target.value });
@@ -103,12 +105,11 @@ const LoginForm = () => {
                 <Col className="md-4">
                 <Button
                     variant="standard"
-                    type="submit"
-                    onClick={(ev) => getKey(ev, formData)}
-                    id="submitButton"
+                    onClick={() =>  history.push("/register")}
+                    id="registerUser"
                   >
                     NEW USER
-                  </Button>
+                </Button>
 
                 </Col>
               </Row>
@@ -118,15 +119,7 @@ const LoginForm = () => {
       )}
       {loginState.OK && (
         <Container id="login-box">
-          <Button
-            variant="primary"
-            type="submit"
-            onClick={() => clearKey()}
-            id="submitButton"
-          >
-            Logonut
-          </Button>
-          <ReactJson src={loginState} />
+          <UserCard userID={loginState.data.id} logout={clearKey} />
         </Container>
       )}
     </>

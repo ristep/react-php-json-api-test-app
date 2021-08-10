@@ -20,6 +20,7 @@ import User from "pages/user";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import MainNavBar from "components/mainNavBar";
+import RegisterUser from "pages/RegisterUser";
 // Voa e nova granka
 function App() {
   const [theme, setTheme] = useState("./styles/Cerulean/main.css");
@@ -77,9 +78,15 @@ function App() {
             <Route path="/user/:userID">
               <User />
             </Route>
+
             <Route path="/login">
               <LoginForm />
             </Route>
+
+            <Route path="/register">
+              <RegisterUser />
+            </Route>
+
           </Switch>
         </Container>
       </Router>

@@ -44,7 +44,6 @@ const useDataModule = (props) => {
   const submitChanges = (ev) => {
     ev.preventDefault();
     ev.stopPropagation();
-  
     updMutation.mutate({ userID: formData.id, changeList: changeList }, {
       onSuccess: () => {
         queryClient.invalidateQueries(['userDetailQuery', { userID }]);
@@ -54,7 +53,7 @@ const useDataModule = (props) => {
     })
   };
 
-  return ({onChange, submitChanges,  isLoading, isSuccess, isFetching, error, formData, serverError, metaData });
+  return ({onChange, submitChanges,  isLoading, isSuccess, isFetching, error, formData, serverError, metaData, changeList});
 };
 
 export default useDataModule;
