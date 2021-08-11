@@ -6,25 +6,18 @@ import useValiHook from "hooks/formValidation";
 import ReactJson from "react-json-view";
 import "../../styles/userForm.scss";
 
-const valNewUserSchema = Yup.object().shape({
-  email: Yup
-    .string()
-    .required("E-mail is required!")
-    .email("Enter valid email address!"),
-  username: Yup.string().required("User name is a required field!"),
-  new_password: Yup.string().required("Password required"),
-  new_password_confirm: Yup
-    .string()
-    .oneOf([Yup.ref("new_password"), "marko", null], "Passwords don't match")
+const RegisterUser = () => {
+  const [formData, setFormData] = useState({ email: "", username: "", new_password: "",  new_password_confirm: "" });
+
+  const valNewUserSchema = Yup.object().shape({
+    email: Yup.string()
+      .required("E-mail is required!")
+      .email("Enter valid email address!"),
+    username: Yup.string().required("User name is a required field!"),
+    new_password: Yup.string().required("Password required"),
+    new_password_confirm: Yup.string().oneOf([formData.new_password, null], "Passwords don't match"),
   });
 
-const RegisterUser = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    username: "",
-    new_password: "",
-    new_password_confirm: "",
-  });
   const { onBlur, validate, errors, valids } = useValiHook({
     valSchema: valNewUserSchema,
     formData,
@@ -35,15 +28,19 @@ const RegisterUser = () => {
   };
 
   const sendMailHandler = () => {
-    validate();
+    validate(); /// validate again to check if all fields are filled
   };
 
   const Lubry = (props) => {
     return (
       <>
-        <Form.Label className="invalid-feedback">{errors?.[props.field]}</Form.Label>
+        <Form.Label className="invalid-feedback">
+          {errors?.[props.field]}
+        </Form.Label>
         <Form.Label className="valid-feedback">{props.label}</Form.Label>
-        {!errors?.[props.field] && !valids?.[props.field] && ( <Form.Label>{props.label}</Form.Label> ) }
+        {!errors?.[props.field] && !valids?.[props.field] && (
+          <Form.Label>{props.label}</Form.Label>
+        )}
       </>
     );
   };
@@ -67,7 +64,7 @@ const RegisterUser = () => {
                 onChange={onChange}
                 onBlur={onBlur}
                 className={
-                  errors?.email ? "is-invalid" : (valids?.email ? "is-valid" : "")
+                  errors?.email ? "is-invalid" : valids?.email ? "is-valid" : ""
                 }
               />
               <Lubry field="email" label="Email" />
@@ -84,9 +81,9 @@ const RegisterUser = () => {
                 value={formData?.username}
                 onChange={onChange}
                 onBlur={onBlur}
-                className={errors?.username ? "is-invalid" : (valids?.username ? "is-valid" : "")}
+                className={ errors?.username ? "is-invalid" : (valids?.username ? "is-valid" : "")}
               />
-              <Lubry field="username" label="User name" />  
+              <Lubry field="username" label="User name" />
             </Form.Group>
 
             <Card>
@@ -102,7 +99,7 @@ const RegisterUser = () => {
                     value={formData.new_password}
                     onChange={onChange}
                     onBlur={onBlur}
-                    className={errors.new_password ? "is-invalid" :  (valids.new_password ? "is-valid" : "")}
+                    className={ errors?.new_password ? "is-invalid" : ( valids?.new_password ? "is-valid": "") }
                   />
                   <Lubry field="new_password" label="Password" />
                 </Form.Group>
@@ -115,12 +112,15 @@ const RegisterUser = () => {
                     size="sm"
                     type="password"
                     placeholder="Confirm Password"
-                    value={formData.new_password_confirm }
+                    value={formData.new_password_confirm}
                     onChange={onChange}
                     onBlur={onBlur}
-                    className={errors.new_password_confirm ? "is-invalid" : (valids.new_password_confirm ? "is-valid" : "")}
+                    className={ errors?.new_password_confirm ? "is-invalid" : (valids?.new_password_confirm ? "is-valid" : "") }
                   />
-                  <Lubry field="new_password_confirm" label="Confirm Password" />
+                  <Lubry
+                    field="new_password_confirm"
+                    label="Confirm Password"
+                  />
                 </Form.Group>
               </Card.Body>
             </Card>
